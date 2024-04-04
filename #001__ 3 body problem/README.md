@@ -22,7 +22,7 @@ pip install pygame
 
 ### Controls
 
-1. Mouse Click and Hold: Create a mass at the cursor's position. The longer you hold, the larger the mass.
-2. R Key: Reset the simulation, clearing all masses from the screen.
-3. SPACEBAR: Pauses the simulation
-4. Q Key: Quits the simulation and closes window.
+1. **Mouse Click and Hold**: Create a mass at the cursor's position. The longer you hold, the larger the mass.
+2. **R Key**: Reset the simulation, clearing all masses from the screen.
+3. **SPACEBAR**: Pauses the simulation
+4. **Q Key**: Quits the simulation and closes window.
