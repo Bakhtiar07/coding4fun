@@ -1,2 +1,3 @@
 # coding4fun
-A collection of my personal coding projects
+## A collection of my personal coding projects
+More to be added later on...
