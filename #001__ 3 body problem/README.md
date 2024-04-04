@@ -15,7 +15,8 @@ This program simulates the gravitational interactions between three bodies in sp
 
 ```bash
 pip install pygame
-'''
+```
+
 
 2. Download the 'main.py' or any of the other scripts from the repository to get started
 
