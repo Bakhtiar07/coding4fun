@@ -1,6 +1,6 @@
 # Discord Bot
 
-This Discord bot is designed to interact with users by responding to messages sent in channels where the bot is present or directly to the bot in a private message. It's built using Python and leverages the Discord API for message interactions.
+This Discord bot is designed to interact with users by responding to messages sent in channels where the bot is present or directly to the bot in a private message. It also has a timer function which allows users to start, pause, resume, or cancel a 30-minute timer. This feature is designed to support productivity techniques like the Pomodoro method. It's built using Python and leverages the Discord API for message interactions.
 
 ## Features
 
