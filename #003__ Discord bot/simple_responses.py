@@ -3,6 +3,14 @@ from random import choice, randint
 def get_response(user_input: str) -> str:
     lowered: str = user_input.lower()
     
+    # List of commands handled by interactive_responses.py
+    interactive_commands = ['start timer', 'pause timer', 'resume timer', 'cancel timer']
+
+    # Check if the user_input is an interactive command
+    if any(command in lowered for command in interactive_commands):
+        # If it is, return None or an empty string to indicate no response should be sent for this input
+        return None
+    
     if lowered == '':
         return 'Well, you\'re awfully silent...'
     elif 'hello' in lowered:

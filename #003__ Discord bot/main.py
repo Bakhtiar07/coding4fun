@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from discord import Intents, Client, Message
 from simple_responses import get_response
+from interactive_responses import start_timer, pause_timer, resume_timer, cancel_timer
 
 # STEP 0: LOAD OUR TOKEN FROM SOMEWHERE SAFE
 load_dotenv()
@@ -33,15 +34,24 @@ async def send_message(message: Message, user_message: str) -> None:
 # STEP 3: HANDLING THE STARTUP FOR OUR BOT
 @client.event
 async def on_ready() -> None:
-    print(f'{client.user} is now running!')
+    print(f'Logged in as {client.user}. Ready to serve!')
 
 
 # STEP 4: HANDLING INCOMING MESSAGES
 @client.event
 async def on_message(message: Message) -> None:
     if message.author == client.user:
-        return
-
+        return # Avoid bot responding to itself
+    if message.content.lower().startswith('start timer'):
+        await start_timer(message)
+    elif message.content.lower().startswith('pause timer'):
+        await pause_timer(message)
+    elif message.content.lower().startswith('resume timer'):
+        await resume_timer(message)
+    elif message.content.lower().startswith('cancel timer'):
+        await cancel_timer(message)
+    
+        
     username: str = str(message.author)
     user_message: str = message.content
     channel: str = str(message.channel)
