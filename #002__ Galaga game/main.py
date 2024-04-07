@@ -11,7 +11,7 @@ from Missile import Missile
 class Game:
     def __init__(self):
         self.missiles:list[Missile] = []
-        self.player = Player(Vector2(screen_width/2, screen_height - 20))
+        self.player = Player(Vector2(screen_width/2, screen_height - 40))
         self.score = 0
         self.enemies:list[Enemy] = []
         self.asteroids:list[Asteroid] = []
