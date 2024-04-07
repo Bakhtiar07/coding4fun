@@ -2,6 +2,7 @@ from typing import Final
 import os
 from dotenv import load_dotenv
 from discord import Intents, Client, Message
+from weather_api import get_bot
 from simple_responses import get_response
 from interactive_responses import start_timer, pause_timer, resume_timer, cancel_timer
 
@@ -50,6 +51,9 @@ async def on_message(message: Message) -> None:
         await resume_timer(message)
     elif message.content.lower().startswith('cancel timer'):
         await cancel_timer(message)
+    if message.content.lower().startswith('!weather'):
+        city_name = message.content[len('!weather'):].strip()
+        await weather(message, city_name)
     
         
     username: str = str(message.author)
@@ -63,6 +67,7 @@ async def on_message(message: Message) -> None:
 # STEP 5: MAIN ENTRY POINT
 def main() -> None:
     client.run(token=TOKEN)
+    get_bot.run(token = TOKEN)
 
 
 if __name__ == '__main__':
