@@ -24,7 +24,7 @@ pygame.init()
 running = True
 screen_width, screen_height = 640, 480
 main_surface = pygame.display.set_mode((screen_width,screen_height), pygame.SCALED | pygame.RESIZABLE, vsync=1)
-font = pygame.font.Font(pygame.font.get_default_font(), 36) # initialize a system font
+font = pygame.font.Font(pygame.font.get_default_font(), 30) # initialize a system font
 clock = pygame.time.Clock()
 G = Game()
 
@@ -33,7 +33,7 @@ while running:
         if evt.type == pygame.QUIT:
             running = False
         if evt.type == pygame.KEYDOWN:
-            if evt.key == pygame.K_p:
+            if evt.key == pygame.K_ESCAPE:
                 if G.state == "PLAYING":
                     G.state = "PAUSED"
                 elif G.state == "PAUSED":
@@ -49,9 +49,9 @@ while running:
 
     if G.state == "PLAYING":
         # spawn enemies and asteroids randomly
-        if np.random.rand() < .01:
+        if np.random.rand() < .02:
             G.enemies.append(Enemy(Vector2(np.random.rand()*700+50,20),50))
-        if np.random.rand() < .05:
+        if np.random.rand() < .04:
             G.asteroids.append(Asteroid(Vector2(np.random.rand()*700+50,20),50))
 
         for m in G.missiles:
@@ -88,6 +88,7 @@ while running:
         G.missiles = list(filter(lambda x: x.destroyed == False, G.missiles))
         G.enemies = list(filter(lambda x: x.destroyed == False, G.enemies))
         G.asteroids = list(filter(lambda x: x.health > 0, G.asteroids))
+        
         if G.player.destroyed:
             G.end_time = time.time()
             G.state = "GAME OVER"
@@ -111,12 +112,14 @@ while running:
         if time.time() - G.end_time > G.reset_time:
             G = Game() # easy way to reset!
 
-        t = font.render(f"Game Over!", True, "#FFFFFF")
-        x,y = t.get_rect().center
-        main_surface.blit(t,(screen_width/2-x, screen_height/2-y))
+        text = font.render(f"Game Over!", True, "#FFFFFF")
+        x,y = text.get_rect().center
+        main_surface.blit(text,(screen_width/2-x, screen_height/2-y))
     
     elif G.state == "PAUSED":
-        pass # just do nothing!
+        text = font.render(f"Paused", True, "#FFFFFF")
+        x,y = text.get_rect().center
+        main_surface.blit(text,(screen_width/2-x, screen_height/2-y))
 
     pygame.display.flip()
 
