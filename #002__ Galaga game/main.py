@@ -1,76 +1,17 @@
 import pygame
-from pygame import Vector2, Rect
 import numpy as np
 import time
+from pygame import Vector2, Rect
+from Player import Player 
+from Enemy import Enemy
+from Asteroid import Asteroid
+from Missile import Missile
 
-class Player:
-    def __init__(self, pos: Vector2):
-        self.original_pos = pos.copy()
-        self.pos = pos
-        self.extents = Rect(-10, -10, 20, 20)
-        self.destroyed = False
-        self.rect = self.extents.move(self.pos.x, self.pos.y)
-
-    def update(self, dt, left: float, right: float, window_width):
-        self.pos += (right - left) * Vector2(300, 0) * dt
-        self.pos.x = pygame.math.clamp(self.pos.x, 0, window_width - self.extents.width)
-        self.update_rect()
-        
-    def update_rect(self):
-        self.rect = self.extents.move(self.pos.x, self.pos.y)
-
-    def draw(self, surface):
-        pygame.draw.rect(surface, "#FFD700", self.rect)  # Gold color 
-
-class Enemy:
-    def __init__(self, pos: Vector2, speed):
-        self.pos = pos
-        self.speed = speed
-        self.extents = Rect(-10, -10, 20, 20)
-        self.rect = self.extents.move(self.pos.x, self.pos.y)
-        self.destroyed = False
-    
-    def update(self, dt):
-        self.pos += Vector2(0, self.speed) * dt
-        self.rect = self.extents.move(self.pos)
-
-    def draw(self, surface):
-        pygame.draw.rect(surface, "#DC143C", self.rect)  # Crimson color
-
-class Asteroid:
-    def __init__(self, pos: Vector2, speed):
-        self.pos = pos
-        self.speed = speed
-        self.health = 100
-        self.destroyed = False
-        
-    def update(self, dt):
-        self.pos += Vector2(0,self.speed)*dt
-        self.extents = Rect(-10,-10, self.health/5, self.health/5)  
-        self.rect = self.extents.move(self.pos)
-
-    def draw(self, surface):
-        pygame.draw.rect(surface,"#00FFFF",self.rect)
-
-class Missile:
-    def __init__(self, pos: Vector2, speed: float):
-        self.pos = pos.copy()
-        self.speed = speed
-        self.direction = Vector2(0, -2)
-        self.extents = Rect(-1,1,2,4)
-        self.destroyed = False
-
-    def update(self, dt):
-        self.pos += self.speed * self.direction * dt
-        self.rect = self.extents.move(self.pos)
-        
-    def draw(self, surface):
-        pygame.draw.rect(surface, "#FFFFFF", self.rect, width=1)  # White color
 
 class Game:
     def __init__(self):
         self.missiles:list[Missile] = []
-        self.player = Player(Vector2(screen_width/2, screen_height-50))
+        self.player = Player(Vector2(screen_width/2, screen_height - 20))
         self.score = 0
         self.enemies:list[Enemy] = []
         self.asteroids:list[Asteroid] = []
@@ -178,3 +119,5 @@ while running:
         pass # just do nothing!
 
     pygame.display.flip()
+
+pygame.quit()
