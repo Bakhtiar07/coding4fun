@@ -20,7 +20,6 @@ intents: Intents = discord.Intents.default()
 intents.message_content = True  # NOQA
 intents.message_content = True
 client: Client = Client(intents=intents)
-
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 
@@ -41,9 +40,9 @@ async def send_message(message: Message, user_message: str) -> None:
 
 
 # STEP 3: HANDLING THE STARTUP FOR OUR BOT
-@client.event 
-async def on_ready() -> None:
-    print(f'Logged in as {client.user}. Ready to serve!')
+# @client.event 
+# async def on_ready() -> None:
+#     print(f'Logged in as {client.user}. Ready to serve!')
     
 @bot.event
 async def on_ready() -> None:
@@ -85,7 +84,7 @@ async def weather(ctx, city: str):
     else:
             await ctx.send(f"There was no results about this place!")
 
-@client.event
+@bot.event
 async def on_message(message: Message) -> None:
     if message.author == client.user:
         return # Avoid bot responding to itself
@@ -113,7 +112,7 @@ async def on_message(message: Message) -> None:
 # STEP 5: MAIN ENTRY POINT
 def main() -> None:
     bot.run(token=TOKEN)
-    client.run(token=TOKEN)
+    #client.run(token=TOKEN)
 
 
 if __name__ == '__main__':
